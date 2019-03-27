@@ -1,8 +1,10 @@
 package com.archerizer.experiments.micronaut;
 
+import io.micronaut.runtime.Micronaut;
+
 public class MicronautExperimentsApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Micronaut.run(MicronautExperimentsApp.class, args);
     }
 }

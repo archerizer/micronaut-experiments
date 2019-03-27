@@ -9,6 +9,10 @@ buildscript {
         
         lombokVersion = '1.18.4'
 
+        micronautVersion = '1.0.3'
+        logbackVersion = '1.2.3'
+        logbackLogstashVersion = '5.3'
+
         assertJVersion = '3.9.0'
         jupiterVersion = '5.1.0'
         mockitoJunitVersion = '2.23.4'
@@ -30,6 +34,9 @@ buildscript {
 
 plugins {
 
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id "com.github.johnrengelman.shadow" version "4.0.2"
+
     id "application"
     id "java"
     id "idea"
@@ -50,17 +57,42 @@ repositories {
     maven { url "https://jcenter.bintray.com" }
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "io.micronaut:micronaut-bom:${micronautVersion}"
+    }
+}
+
 dependencies {
 
     annotationProcessor(
-        "org.projectlombok:lombok:${lombokVersion}"
+        "org.projectlombok:lombok:${lombokVersion}",
+        "io.micronaut:micronaut-inject-java",
+        "io.micronaut:micronaut-validation"
     )
 
     compileOnly(
         "org.projectlombok:lombok:${lombokVersion}"
     )
 
+    implementation(
+        "io.micronaut:micronaut-inject",
+        "io.micronaut:micronaut-validation",
+        "io.micronaut:micronaut-runtime",
+        "io.micronaut:micronaut-http-server-netty",
+        "io.micronaut:micronaut-http-client",
+        "io.micronaut:micronaut-management",
+        "io.micronaut.configuration:micronaut-micrometer-core",
+        "io.micronaut.configuration:micronaut-micrometer-registry-prometheus",
+        "net.logstash.logback:logstash-logback-encoder:${logbackLogstashVersion}"
+    )
+
+    compile(
+        "ch.qos.logback:logback-classic:${logbackVersion}"
+    )
+
     testImplementation(
+        "io.micronaut:micronaut-inject-java",
         "org.assertj:assertj-core:${assertJVersion}",
         "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}",
         "org.mockito:mockito-junit-jupiter:${mockitoJunitVersion}"
