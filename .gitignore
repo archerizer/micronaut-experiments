@@ -1,0 +1,21 @@
+# MacOS
+Thumbs.db
+.DS_Store
+
+# Gradle
+.gradle
+
+# Build
+build/
+target/
+out/
+
+# IntelliJ
+.idea
+*.ipr
+*.iws
+
+# Eclipse
+.project
+.settings
+.classpath
