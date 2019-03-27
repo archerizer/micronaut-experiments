@@ -1,0 +1,103 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+//                                                      VERSIONS                                                      //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+buildscript {
+    ext {
+        
+        lombokVersion = '1.18.4'
+
+        assertJVersion = '3.9.0'
+        jupiterVersion = '5.1.0'
+        mockitoJunitVersion = '2.23.4'
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+//                                                      PLUGINS                                                       //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
+
+plugins {
+
+    id "application"
+    id "java"
+    id "idea"
+
+    id "net.ltgt.apt-idea" version "0.18"
+    id "net.ltgt.apt" version "0.15"
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+//                                                    DEPENDENCIES                                                    //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+dependencies {
+
+    annotationProcessor(
+        "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+    compileOnly(
+        "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+    testImplementation(
+        "org.assertj:assertj-core:${assertJVersion}",
+        "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}",
+        "org.mockito:mockito-junit-jupiter:${mockitoJunitVersion}"
+    )
+
+    testRuntimeOnly(
+        "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
+    )
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+//                                          BUILD / RUN / TEST CONFIGURATION                                          //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+group "com.archerizer.experiments"
+
+mainClassName = "com.archerizer.experiments.micronaut.MicronautExperimentsApp"
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter'
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+//                                               RELEASE AND VERSIONING                                               //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+jar {
+    manifest {
+        attributes = [
+            'Implementation-Title' : project.name,
+            'Implementation-Version' : project.version
+        ]
+    }
+}
