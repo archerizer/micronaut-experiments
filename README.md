@@ -28,4 +28,3 @@ The HTTP request has a "Host" header set to "localhost
 ### Example Application
 
 - https://github.com/archerizer/micronaut-experiments/tree/issue/http-client-host-header
-K
