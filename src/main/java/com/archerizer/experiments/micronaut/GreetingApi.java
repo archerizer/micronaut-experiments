@@ -7,10 +7,6 @@ import io.micronaut.http.annotation.Produces;
 
 @Controller("/greeting")
 public class GreetingApi {
-    // GET /greeting/robyn
-    // {
-    //     "message": "robyn"
-    // }
     @Get("/{message}")
     @Produces(MediaType.APPLICATION_JSON)
     Greeting getGreeting(String message) {
