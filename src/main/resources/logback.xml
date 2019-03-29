@@ -1,0 +1,16 @@
+<configuration>
+
+    <!-- Silence non-ERROR logs from all packages by default -->
+    <logger name="io" level="error"/>
+    <logger name="com" level="error"/>
+    <logger name="org" level="error"/>
+    <logger name="reactor" level="error"/>
+    <logger name="ch" level="error"/>
+
+    <!-- Expose application startup time log message from Micronaut -->
+    <logger name="io.micronaut.runtime.Micronaut" level="info"/>
+
+    <!-- Expose all logs from our own classes -->
+    <logger name="com.archerizer" level="debug"/>
+
+</configuration>
